@@ -10,29 +10,41 @@ namespace GRUPA_K13
     {
         static void Main(string[] args)
         {
-            XmlStorageTypes.Register<User>();
-
             /*
             User _oUser = new User
             {
-                Login = "jacek",
-                Password = "12jacek34"
+                Login = "jkuzmicz",
+                Password = "12pwd34",
+                Persmission = 1
             };
 
-            var _oStream = _oUser.ToXml();
-
-            string _sXML = Encoding.UTF8.GetString(_oStream.ToArray());
+            try
+            {
+                _oUser.ExportToFile("user.xml");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
             */
-
-            string _sXML = @"<User xmlns=""http://schemas.datacontract.org/2004/07/GRUPA_K13.Classes.BusinessLogic"" xmlns:i=""http://www.w3.org/2001/XMLSchema-instance""><Login>jacek</Login><Password>12jacek34</Password></User>";
 
             User _oUser = new User();
 
-            _oUser.FromXml(new MemoryStream(Encoding.UTF8.GetBytes(_sXML)));
-
-            Console.WriteLine(_sXML);
-
-            Console.WriteLine($"Login={_oUser.Login} Password={_oUser.Password}");
+            try
+            {
+                if (_oUser.ImportFromFile("user.xml"))
+                {
+                    Console.WriteLine(_oUser);
+                }
+                else
+                {
+                    Console.WriteLine("Coś nie pykło...");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

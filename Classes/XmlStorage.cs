@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
@@ -10,16 +11,42 @@ namespace GRUPA_K13.Classes
 {
     public static class XmlStorageTypes
     {
-        private static readonly List<Type> KnownTypes = new List<Type>() { typeof(object) };
+        private static readonly List<Type> KnownTypes = new List<Type>();
+
+        static XmlStorageTypes()
+        {
+            Register<Object>();
+            Register<Exception>();
+
+            foreach (var _type in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if (!_type.IsGenericType)
+                {
+                    foreach (var _attr in _type.GetCustomAttributes())
+                    {
+                        if (_attr.GetType() == typeof(DataContractAttribute))
+                        {
+                            Register(_type);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         public static void Register<T>()
         {
-            Type _oType = typeof(T);
+            Register(typeof(T));
+        }
 
+        public static void Register(Type _oType)
+        {
             if (!KnownTypes.Contains(_oType))
             {
+                Console.WriteLine($"Register:{_oType}");
+
                 KnownTypes.Add(_oType);
-            }            
+            }
         }
 
         public static Type[] GetArray() => KnownTypes.ToArray();
