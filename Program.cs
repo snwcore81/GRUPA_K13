@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using GRUPA_K13.Classes;
 using GRUPA_K13.Classes.BusinessLogic;
+using GRUPA_K13.Classes.Messages;
 
 namespace GRUPA_K13
 {
@@ -10,6 +11,22 @@ namespace GRUPA_K13
     {
         static void Main(string[] args)
         {
+            MessageFactory.Instance.Register<LoginMessage>();
+            MessageFactory.Instance.Register<TextMessage>();
+
+            Console.Write("Podaj model dzialania(1-serwer,2-klinet:)");
+
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    new ServerModule().Run();
+                    break;
+
+                case "2":
+                    new ClientModule().Run();
+                    break;
+            }
+
             /*
             User _oUser = new User
             {
@@ -28,6 +45,7 @@ namespace GRUPA_K13
             }
             */
 
+            /*
             User _oUser = new User();
 
             try
@@ -45,6 +63,7 @@ namespace GRUPA_K13
             {
                 Console.WriteLine(e.Message);
             }
+            */
         }
     }
 }

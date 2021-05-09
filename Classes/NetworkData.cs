@@ -66,5 +66,7 @@ namespace GRUPA_K13.Classes
             }
         }
 
+        public byte[] BufferWithData => Buffer.Take(DataLength()).ToArray();
+
     }
 }
