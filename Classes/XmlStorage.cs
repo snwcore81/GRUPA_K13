@@ -34,6 +34,10 @@ namespace GRUPA_K13.Classes
             }
         }
 
+        public static void Initialize()
+        {
+        }
+
         public static void Register<T>()
         {
             Register(typeof(T));

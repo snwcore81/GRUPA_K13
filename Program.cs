@@ -11,6 +11,8 @@ namespace GRUPA_K13
     {
         static void Main(string[] args)
         {
+            XmlStorageTypes.Initialize();
+
             MessageFactory.Instance.Register<LoginMessage>();
             MessageFactory.Instance.Register<TextMessage>();
 
