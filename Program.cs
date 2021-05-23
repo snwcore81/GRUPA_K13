@@ -4,6 +4,7 @@ using System.Text;
 using GRUPA_K13.Classes;
 using GRUPA_K13.Classes.BusinessLogic;
 using GRUPA_K13.Classes.Messages;
+using GRUPA_K13.Classes.System;
 
 namespace GRUPA_K13
 {
@@ -11,6 +12,12 @@ namespace GRUPA_K13
     {
         static void Main(string[] args)
         {
+            Log.CurrentLevel = Log.LevelEnum.DEB;
+
+            using var _log = Log.DEB("Program", "Main");
+
+            _log.PR_DEB("to jest początek aplikacji");
+
             XmlStorageTypes.Initialize();
 
             MessageFactory.Instance.Register<LoginMessage>();

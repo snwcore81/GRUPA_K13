@@ -1,4 +1,5 @@
-﻿using GRUPA_K13.Interfaces;
+﻿using GRUPA_K13.Classes.System;
+using GRUPA_K13.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +16,8 @@ namespace GRUPA_K13.Classes
 
         static XmlStorageTypes()
         {
+            using var _log = Log.DET("XmlStorageTypes", "XmlStorageTypes");
+
             Register<Object>();
             Register<Exception>();
 
@@ -36,6 +39,7 @@ namespace GRUPA_K13.Classes
 
         public static void Initialize()
         {
+            using var _log = Log.DET("XmlStorageTypes", "Initialize");
         }
 
         public static void Register<T>()
@@ -45,9 +49,11 @@ namespace GRUPA_K13.Classes
 
         public static void Register(Type _oType)
         {
+            using var _log = Log.DET("XmlStorageTypes", "Register");
+
             if (!KnownTypes.Contains(_oType))
             {
-                Console.WriteLine($"Register:{_oType}");
+                _log.PR_DET($"Register:{_oType}");
 
                 KnownTypes.Add(_oType);
             }
